@@ -1,16 +1,32 @@
 #from uuid import uuid4
-
+from app.models.users import User
+from app.models.book import Book
 from datetime import date
 
-from uuid import uuid4
+#from uuid import uuid4
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
 
 engine = create_engine(
+    "sqlite:///data/db.sqlite", 
+    echo=True,
 )
 
-bookstore = {
+Session = sessionmaker(engine)
+
+class Base(DeclarativeBase):
+    pass
+
+
+def create_database():
+    Base.metadata.create_all(engine)
+
+
+def delete_database():
+    Base.metadata.clear()
+
+"""bookstore = {
     "books" : 
         [
     {
@@ -76,6 +92,6 @@ bookstore = {
             "admin": False
         },
     ]
-}
+}"""
 
 
