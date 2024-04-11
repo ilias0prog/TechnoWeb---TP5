@@ -1,0 +1,28 @@
+{% extends "empty_page.html" %}
+{% from "my_macro.html" import show_task %}
+
+{% block content %}
+
+<div class="container">
+    {% if current_user is not none %}
+    <h2>Utilisateur connecté : {{ current_user.username }}</h2>
+    {% endif %}
+
+    <table class="table">
+        <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Commentaires</th>
+            <th>Date de création</th>
+        </tr>
+        {% for task in tasks %}
+            {{ show_task(task.name, task.description, task.creation_date, task.comments) }}
+        {% endfor %}
+    </table>
+    
+    <div>
+        <a class="btn btn-outline-success mx-4" href="/tasks/new">Créer une nouvelle tâche</a>
+    </div>
+</div>
+
+{% endblock %}

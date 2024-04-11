@@ -1,0 +1,27 @@
+{% macro show_task(name, description, creation_date, comments) %}
+    <tr>
+        <td>{{ name }}</td>
+        
+        <td>
+        {% if description is none or description|length < 1 %}
+            /
+        {% else %}
+            {{description}}
+        {% endif %}
+        </td>
+
+        <td>
+            <div>
+                {% for comment in comments %}
+                <div class="card">
+                    <div class="card-body">
+                        {{comment.message}}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </td>
+
+        <td>{{ creation_date.strftime('%Y-%m-%d')  }}</td>
+    </tr>
+{% endmacro %}

@@ -1,0 +1,63 @@
+{% extends "empty_page.html" %}
+{% block content %}
+
+<head>
+    <title>New account</title>
+</head>
+<body>
+    <h1 class="header">Create an account</h1>
+    
+    <form action="/users/register/{{ username }}/{{ firstname }}/{{ name }}/{{ email }}/{{ password }}/{{ confirm_password }}" method="post">
+        <label for="username">Username:</label>
+        <input 
+            id="user_username"
+            type="text" 
+            name="username" 
+            value="JohnWick123" 
+            required>
+        <br><br>
+
+        <label for="firstname">Firstname:</label>
+        <input 
+            id="user_firstname"
+            type="text" 
+            name="firstname" 
+            value="John" 
+            required>
+        <br><br>
+
+        <label for="name">Name:</label>
+        <input id="user_lastname"
+            type="text" 
+            name="name" 
+            value="Wick" 
+            required>
+        <br><br>
+
+        <label for="email">Email:</label>
+        <input id="user_email"
+            type="text" 
+            name="email" 
+            value="IAmJohnWick@johnwick.johnwick" 
+            required>
+        <br><br>
+        
+        <label for="password">Password :</label>
+        <input id="user_password"
+            type="password" 
+            name="password" 
+            required>
+        <br><br>
+        <label for="confirm_your_password">Confirm your password :</label>
+        <input id="user_password"
+            type="password" 
+            name="password" 
+            required>
+        <br><br>
+        <input type="submit" value="Sign in">
+    </form>
+    
+    <p>Do you have an account ? <a href="login">Connect to your account</a></p>
+</body>
+
+{% endblock %}
