@@ -3,9 +3,9 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from app.routes.books import router as book_router
 from app.routes.users import router as user_router
-from starlette.staticfiles import StaticFiles
+from starlette.staticfiles import StaticFiles   
 from fastapi.staticfiles import StaticFiles
-
+from app.database import create_database
 
 templates = Jinja2Templates(directory="\TP4\Librairie\Templates")
 
@@ -23,5 +23,6 @@ app.mount("/static", StaticFiles(directory="TP4/Librairie/static"), name="static
 @app.on_event('startup')
 def on_startup():
     print("Server started.")
+    create_database()    
 def on_shutdown():
     print("Bye bye!")
