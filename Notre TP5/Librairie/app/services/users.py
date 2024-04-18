@@ -3,7 +3,6 @@ from uuid import uuid4
 from app.database import Session
 from app.models.users import User
 from app.schemas.user import UserSchema
-from app.database import Session
 from app.models.users import User
 from app.schemas import UserSchema
 

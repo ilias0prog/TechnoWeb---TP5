@@ -1,10 +1,10 @@
 #from uuid import uuid4
-from sqlalchemy import create_engine , MetaData, Table, Column, Integer, String
+from sqlalchemy import create_engine 
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
 
 engine = create_engine(
-    "sqlite:///data/db.sqlite", 
+    "sqlite:///data/database.sqlite", 
     echo=True
 )
 
@@ -12,6 +12,9 @@ Session = sessionmaker(engine)
 
 class Base(DeclarativeBase):
     pass
+
+from app.models.book import Book 
+from app.models.users import User
 
 
 def create_database():
