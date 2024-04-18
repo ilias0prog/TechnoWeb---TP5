@@ -1,10 +1,10 @@
 #from uuid import uuid4
 from app.models.users import User
 from app.models.book import Book
-from datetime import date
+ 
 
 #from uuid import uuid4
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine , MetaData, Table, Column, Integer, String
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
 
@@ -22,9 +22,42 @@ class Base(DeclarativeBase):
 def create_database():
     Base.metadata.create_all(engine)
 
-
 def delete_database():
     Base.metadata.clear()
+    
+books_metadata = MetaData()
+books= Table('books', books_metadata,
+                 Column('id', Integer, primary_key=True),
+              Column('name', String),
+              Column('author', String),
+              Column('editor', String)
+                )    
+
+users_metadata = MetaData()
+users = Table("users", users_metadata,
+              Column('id', Integer, primary_key=True),
+              Column('username', String),
+              Column('firstname', String),
+              Column('name', String),
+              Column('password', String),
+              Column('email', String),
+              Column('admin', bool))
+
+
+users_metadata.create_all(engine)
+books_metadata.create_all(engine)
+
+Session = sessionmaker(engine)
+
+with Session() as session:
+    users = User(
+        id = "IOAODNABHCAKNDNA1I9NCACP",
+        username = "JohnWick777",
+        firstname = "John",
+        name = "Wick",
+        email = "johnwick@gmail.com", 
+        password = "JW777")
+
 
 """bookstore = {
     "books" : 
