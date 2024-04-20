@@ -34,6 +34,7 @@ def get_user_by_id(id: str):
                 password = user.password,
             )
     return None
+
 def register(username: str, firstname: str, name: str,email: str, password: str, confirm_your_password: str):
     # Adds a new username to the database
     maxLengthPassword = 20
@@ -49,18 +50,63 @@ def register(username: str, firstname: str, name: str,email: str, password: str,
         if user["username"] == username or user["email"] == email:
             raise ValueError ("This username or email is already taken.")
 
-    newUser = {
-        "id": str(uuid4()),
-            "username": username,
-            "firstname" : firstname,
-            "name" : name,
-            "password": password,    
-            "email": email,
-            "admin": False
-    }
+    with Session() as session:
+        user = User(
+            id=str(uuid4()),
+            username=username,
+            firstname=firstname,
+            name=name,
+            email=email,
+            password=password
+        )
+        session.add(user)
+        session.commit()
     
-    bookstore["users"].append(newUser)
-    return 
-def get_all_users(bookstore):
+def get_all_users():
     # Returns all the users as a list
-    return bookstore["users"]
+    with Session() as session:
+        statement = select(User)
+        users = session.execute(statement).all()
+        
+        users_list = []
+        for user in users:
+            user_schema = User(
+                id=user.id,
+                username=user.username,
+                firstname=user.firstname,
+                name=user.name,
+                email=user.email,
+                password=user.password,
+                admin =user.admin,
+                blocked = user.blocked
+            )
+            users_list.append(user_schema)
+        
+        return users_list
+    
+def block_user(id : str):
+    # Blocks the user with the given username
+    with Session() as session:
+        statement = select(User).filter_by(id=id)
+        user = session.scalars(statement).one()
+
+        user.blocked = True
+        session.commit()
+
+
+def unblock_user(id : str):
+    # Blocks the user with the given username
+    with Session() as session:
+        statement = select(User).filter_by(id=id)
+        user = session.scalars(statement).one()
+
+        user.blocked = False
+        session.commit()
+
+
+def grant_admin(id : str):
+    # Blocks the user with the given username
+    with Session() as session:
+        statement = select(User).filter_by(id=id)
+        user = session.scalars(statement).one()
+        #...

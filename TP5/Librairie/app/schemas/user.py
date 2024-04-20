@@ -8,3 +8,6 @@ class UserSchema(BaseModel):
     name: str
     email: str
     password: str = Field(min_length=8, max_length=20)
+    admin: bool
+    blocked: bool
+    connected: bool

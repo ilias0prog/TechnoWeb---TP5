@@ -1,0 +1,10 @@
+{% extends "empty_page.html" %}
+
+{% block content %}
+
+<h1>Unblock {{username}} ?</h1>
+<form class="confirm_form" action="/users/unblock/{{username}}" method="post">
+        <button class="form_button" type="submit">Oui</button>
+</form>
+
+{% endblock %}

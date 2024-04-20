@@ -6,7 +6,7 @@ from uuid import uuid4
 from fastapi import APIRouter, HTTPException, status
 from fastapi.responses import HTMLResponse
 from pydantic import ValidationError
-from app.schemas.books import Book
+from app.schemas.books import BookSchema
 import app.services.books as service
 from Templates import *
 from fastapi import Request
@@ -30,7 +30,7 @@ def get_all_books(request: Request):
     Returns:
         JSONResponse: The response containing the list of all books.
     """
-    booknumber = str(len(bookstore["books"]))
+    booknumber = str(service.get_amount_books())
     books = service.get_all_books()
     return templates.TemplateResponse(
         "all_books.html",

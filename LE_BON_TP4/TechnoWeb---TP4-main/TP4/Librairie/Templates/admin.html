@@ -1,0 +1,32 @@
+{% extends "empty_page.html" %}
+{% from "macro.html" import show_user %}
+{% block content %}
+
+<head>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <h1>Manage users</h1>
+    <div class="table_container" id="users">
+        <table class="user_table">
+            <thead> 
+                <th>Username</th>
+                <th>Firstname</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Is blocked</th>
+                <th>Block</th>
+                <th>Unlblock</th>
+            </thead>
+
+            {% for user in users %}
+            {{ show_user( user.username, user.firstname, user.name, user.email, user.blocked) }}
+            
+            {% endfor %}
+            
+        </table> 
+        
+    </div>
+</body>
+
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "empty_page.html" %}
+
+{% block content %}
+
+<h1>Block {{username}} ?</h1>
+<form class="confirm_form" action="/users/block/{{username}}" method="post">
+        <button class="form_button" type="submit">Oui</button>
+</form>
+
+{% endblock %}
