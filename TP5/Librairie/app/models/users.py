@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import String
+from sqlalchemy import String, Boolean
 
 from app.database import Base
 
@@ -13,5 +13,5 @@ class User(Base):
     name            : Mapped[str] = mapped_column(String(72))
     email           : Mapped[str] = mapped_column(String(72), unique=True)
     password        : Mapped[str] = mapped_column(String(72))
-    admin           : Mapped[bool] = mapped_column(bool)
-    blocked         : Mapped[bool] = mapped_column(bool)
+    admin           : Mapped[bool] = mapped_column(Boolean, default=False)
+    blocked         : Mapped[bool] = mapped_column(Boolean, default=False)

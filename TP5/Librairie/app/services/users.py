@@ -43,24 +43,24 @@ def register(username: str, firstname: str, name: str,email: str, password: str,
     if password != confirm_your_password:
         raise ValueError("The passwords do not match.")
     
-    if len(password) < minLengthPassword or len(password) > maxLengthPassword:
+    elif len(password) < minLengthPassword or len(password) > maxLengthPassword:
         raise ValueError("The length of the password must be between {} and {}".format(minLengthPassword,maxLengthPassword))
     
     for user in get_all_users():
         if user["username"] == username or user["email"] == email:
             raise ValueError ("This username or email is already taken.")
-
-    with Session() as session:
-        user = User(
-            id=str(uuid4()),
-            username=username,
-            firstname=firstname,
-            name=name,
-            email=email,
-            password=password
-        )
-        session.add(user)
-        session.commit()
+    else :
+        with Session() as session:
+            user = User(
+                id=str(uuid4()),
+                username=username,
+                firstname=firstname,
+                name=name,
+                email=email,
+                password=password
+            )
+            session.add(user)
+            session.commit()
     
 def get_all_users():
     # Returns all the users as a list
