@@ -4,6 +4,7 @@ from app.database import Session
 from app.models.users import User
 from app.schemas.user import UserSchema
 
+"""
 def get_user_by_username(username: str):
     with Session() as session:
         statement = select(User).filter_by(username=username)
@@ -18,6 +19,7 @@ def get_user_by_username(username: str):
                 password = user.password,
             )
     return None
+"""
 
 
 def get_user_by_id(id: str):
@@ -34,6 +36,23 @@ def get_user_by_id(id: str):
                 password = user.password,
             )
     return None
+
+def get_user_by_username(thisUsername :str):
+    with Session() as session:
+        user = session.query(User).filter(User.username == thisUsername).first()
+        if user is not None:
+            return UserSchema (
+                id = user.id,
+                username=user.username,
+                firstname = user.firstname,
+                name = user.name,
+                email = user.email,
+                password = user.password,
+                admin = user.admin,
+                blocked=user.blocked
+            )
+        return None
+
 
 def register(username: str, firstname: str, name: str,email: str, password: str, confirm_your_password: str):
     # Adds a new username to the database
