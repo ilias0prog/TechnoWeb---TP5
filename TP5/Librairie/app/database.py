@@ -23,8 +23,11 @@ from app.models.users import User
 def create_database():
     Base.metadata.create_all(engine)
 
-def delete_database():
+def clear_database():
     Base.metadata.clear()
+    
+def delete_database():
+    Base.metadata.drop_all(engine)
 
 def fill_users_db():    
     users_data = [
@@ -36,7 +39,7 @@ def fill_users_db():
         "email": "john.doe@example.com",
         "password": "password123",
         "admin": True,
-        "blocked": False,
+        "blocked": False
     },
     {
         "id": str(uuid4()),
@@ -46,7 +49,7 @@ def fill_users_db():
         "email": "jane.smith@example.com",
         "password": "password456",
         "admin": False,
-        "blocked": False,
+        "blocked": False
     },
     {
         "id": str(uuid4()),
@@ -56,7 +59,7 @@ def fill_users_db():
         "email": "bob.johnson@example.com",
         "password": "password789",
         "admin": False,
-        "blocked": True,
+        "blocked": True
     },
     {
         "id": str(uuid4()),
@@ -66,7 +69,7 @@ def fill_users_db():
         "email": "emily.clark@example.com",
         "password": "passwordabc",
         "admin": True,
-        "blocked": True,
+        "blocked": True
     },
     {
         "id": str(uuid4()),
@@ -76,7 +79,7 @@ def fill_users_db():
         "email": "michael.taylor@example.com",
         "password": "passworddef",
         "admin": False,
-        "blocked": False,
+        "blocked": False
     },
     {
         "id": str(uuid4()),
@@ -86,7 +89,7 @@ def fill_users_db():
         "email": "susan.miller@example.com",
         "password": "passwordghi",
         "admin": False,
-        "blocked": False,
+        "blocked": False
     },
     {
         "id": str(uuid4()),
@@ -96,7 +99,7 @@ def fill_users_db():
         "email": "david.anderson@example.com",
         "password": "passwordjkl",
         "admin": True,
-        "blocked": False,
+        "blocked": False
     },
     {
         "id": str(uuid4()),
@@ -106,7 +109,7 @@ def fill_users_db():
         "email": "amy.wilson@example.com",
         "password": "passwordmno",
         "admin": False,
-        "blocked": False,
+        "blocked": False
     },
     {
         "id": str(uuid4()),
@@ -116,7 +119,7 @@ def fill_users_db():
         "email": "peter.brown@example.com",
         "password": "passwordpqr",
         "admin": False,
-        "blocked": True,
+        "blocked": True
     },
     {
         "id": str(uuid4()),
@@ -126,7 +129,7 @@ def fill_users_db():
         "email": "laura.evans@example.com",
         "password": "passwordstu",
         "admin": True,
-        "blocked": False,
+        "blocked": False
     }
 ]
     

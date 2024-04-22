@@ -15,12 +15,3 @@ class User(Base):
     password        : Mapped[str] = mapped_column(String(72))
     admin           : Mapped[bool] = mapped_column(Boolean, default=False)
     blocked         : Mapped[bool] = mapped_column(Boolean, default=False)    
-    """
-    id = Column(String(72), primary_key=True)
-    username = Column(String(72), unique=True)
-    firstname = Column(String(72))
-    name = Column(String(72))
-    email = Column(String(72), unique=True)
-    password = Column(String(72))
-    admin = Column(Boolean)
-    blocked = Column(Boolean)"""

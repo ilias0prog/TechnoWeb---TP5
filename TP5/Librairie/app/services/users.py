@@ -51,7 +51,8 @@ def get_user_by_username(thisUsername :str):
                 admin = user.admin,
                 blocked=user.blocked
             )
-        return None
+    
+        
 
 
 def register(username: str, firstname: str, name: str,email: str, password: str, confirm_your_password: str):

@@ -19,23 +19,23 @@ def login_form(request: Request):
 def login_route( username: Annotated[str, Form()], password: Annotated[str,Form()]):
     
     user = service.get_user_by_username(username)
-    if user.blocked == True:
-        return HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="User is blocked."
+    if user is not None:
+        if user.blocked == True:
+            return HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="User is blocked."
+            )
+        if user is None or user.password != password:
+            return HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="incorrect username or password.")
+            
+        access_token = login_manager.create_access_token(
+            data={'sub': user.id}
         )
-    if user is None or user.password != password:
-        return HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="incorrect username or password.")
+        response = RedirectResponse(url="/books/all", status_code=302)
         
-    access_token = login_manager.create_access_token(
-        data={'sub': user.id}
-    )
-    service.set_connected(username)
-    response = RedirectResponse(url="/books/all", status_code=302)
-    
-    return response
+        return response
 
 
 
