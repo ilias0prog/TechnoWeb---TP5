@@ -18,7 +18,9 @@ def get_all_books() -> list[BookSchema]:
                 id=book.id,
                 name=book.name,
                 author=book.author,
-                editor=book.editor
+                editor=book.editor,
+                price = book.price,
+                owner_id = book.owner_id
             )
             for book in books_data]
     
