@@ -34,6 +34,8 @@ def get_user_by_id(id: str):
                 name = user.name,
                 email = user.email,
                 password = user.password,
+                admin=user.admin,
+                blocked=user.blocked
             )
     return None
 

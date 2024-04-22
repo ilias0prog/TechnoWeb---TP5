@@ -12,6 +12,10 @@ from Templates import *
 from fastapi import Request
 from fastapi.templating import Jinja2Templates
 from typing import Optional
+from app.models.users import User
+from app.schemas.user import UserSchema
+from fastapi import Depends
+from app.login_manager import login_manager
 #from app.database import bookstore
 
 
@@ -30,11 +34,12 @@ def get_all_books(request: Request):
     Returns:
         JSONResponse: The response containing the list of all books.
     """
+    user: UserSchema = Depends(login_manager)
     booknumber = str(service.get_amount_books())
     books = service.get_all_books()
     return templates.TemplateResponse(
         "all_books.html",
-        context={'request': request, 'books': books, 'booknumber': booknumber}
+        context={'request': request, 'books': books, 'booknumber': booknumber, 'user': user}
     )
 
 @router.get('/new')
@@ -70,7 +75,7 @@ def add_book(name: Annotated[str, Form()], author: Annotated[str, Form()], edito
         "editor": editor,
     }     
     try:
-        new_book = Book.model_validate(new_book_data)
+        new_book = BookSchema.model_validate(new_book_data)
           
     except ValidationError as e:
         raise HTTPException(
@@ -114,7 +119,7 @@ def update_book(id: str, name: Optional[str] = Form(None), author: Optional[str]
         update["editor"] = editor
 
     try :
-        updated_fields = Book.model_validate(update)
+        updated_fields = BookSchema.model_validate(update)
     except  ValidationError:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,

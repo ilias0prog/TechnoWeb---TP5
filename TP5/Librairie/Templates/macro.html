@@ -1,4 +1,4 @@
-{% macro show_book(id,name, author, editor) %}
+{% macro show_book(id,name, author, editor, price) %}
 
 <head>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -15,10 +15,12 @@
         </td>
 
         <td class="book_name_cells">{{ name }}</td>
-        
+
         <td>{{ author }}</td>
 
         <td>{{ editor }}</td>
+
+        <td>{{ price }} €</td>
     </tr>
 {% endmacro %}
 {% macro show_user(username,firstname, name, email, blocked) %}

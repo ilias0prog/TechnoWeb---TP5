@@ -14,7 +14,7 @@
         <h1 class="hometitle">Our Bookstore</h1>
         <div class="home_links">
             <ul>
-                {% if user.admin == True %}
+                {% if user.admin %}
                 <li> <a href="/users/admin">Admin</a></li>
                 <li> <a href="/users/logout">Logout</a></li>
                 {% else %}
@@ -23,30 +23,33 @@
             </ul>
         </div>
     </nav>
-    
+
     <div class="table_container">
         <table class="book_table">
             <thead>
-                {% if user.admin == True %}
-                <th>Modify</th>
-                <th>Delete</th>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Editor</th>
-                {% else %}
-                <th>Title</th>
-                <th>Author</th>
-                <th>Editor</th>
+                {% if user.admin %}
+                <th>    Modify  </th>
+                <th>    Delete  </th>
+                <th>    Title   </th>
+                <th>    Author  </th>
+                <th>    Editor  </th>
+                <th>    Price   </th>
+                    {% else %}
+                <th>    Title   </th>
+                <th>    Author  </th>
+                <th>    Editor  </th>
+                <th>    Price   </th>
             </thead>
             {% endif %} 
             {% for book in books %}
-            {% if user.admin == True %}
-            {{ show_book(book.id, book.name, book.author, book.editor) }}
+            {% if user.admin %}
+            {{ show_book(book.id, book.name, book.author, book.editor, book.price)}}
             {% else %}
             <tbody>
                 <td>{{ book.name }}</td>
                 <td>{{ book.author }}</td>
                 <td>{{ book.editor }}</td>
+                <td>{{ book.price }} €</td>
             </tbody>
             {% endif %}
             {% endfor %}
@@ -54,7 +57,7 @@
         
     </div>
     
-    {% if  user.admin == True %}
+    {% if user.admin %}
     <div class="add_button_container">
         <a class="button_link" href="/books/new"><i class='bx bx-book-add' id="add_button"></i></box-icon></a>
     </div>

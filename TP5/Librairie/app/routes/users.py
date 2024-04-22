@@ -29,19 +29,17 @@ def login_route( username: Annotated[str, Form()], password: Annotated[str,Form(
             return HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="incorrect username or password.")
-        else :    
-            access_token = login_manager.create_access_token(
-                data={'sub': user.id}
-            )
-           
-            response = JSONResponse({"status": "success"})
-            response.set_cookie(
+            
+        access_token = login_manager.create_access_token(
+            data={'sub': user.id}
+        )
+        response = RedirectResponse(url="/books/all", status_code=302)
+        response.set_cookie(
             key=login_manager.cookie_name,
             value=access_token,
-            httponly=True)
-            return response
-    reponse = RedirectResponse(url="/books/all", status_code=302)
-    return reponse
+            httponly=True
+        )
+        return response
 
 
 
@@ -56,7 +54,7 @@ def logout_route():
         key=login_manager.cookie_name,
         httponly=True
     )
-    service.set_disconnected()
+  
     return response
 
 
