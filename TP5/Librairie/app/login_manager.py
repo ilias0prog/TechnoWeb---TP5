@@ -1,6 +1,8 @@
 from fastapi_login import LoginManager
 from app.services.users import get_user_by_id
 
+
+
 SECRET = "SECRET"
 login_manager = LoginManager(SECRET, '/login', use_cookie=True)
 login_manager.cookie_name = "auth_cookie"

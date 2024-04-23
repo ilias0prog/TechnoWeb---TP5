@@ -3,15 +3,16 @@ from fastapi import APIRouter, HTTPException, status, Depends, Form
 from fastapi.responses import RedirectResponse, JSONResponse
 from fastapi.responses import JSONResponse
 from Templates import *
-from app.login_manager import login_manager
+from app.login_manager import *
 import app.services.users as service
 from app.schemas.user import UserSchema
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
+from app.database import bigUser
+
 
 templates = Jinja2Templates(directory="TP5\Librairie\Templates")
 router = APIRouter(prefix="/users")
-
 @router.get("/login")
 def login_form(request: Request):
     return templates.TemplateResponse("/login.html", {"request": request})
@@ -25,11 +26,20 @@ def login_route( username: Annotated[str, Form()], password: Annotated[str,Form(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="User is blocked."
             )
-        if user is None or user.password != password:
+        if user.password != password:
             return HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="incorrect username or password.")
-            
+                detail="incorrect password.")
+        bigUser = {
+            "id" : user.id,
+            "username" : user.username,
+            "firstname" : user.firstname,
+            "name" : user.name,
+            "email" : user.email,
+            "password" : user.password,
+            "admin" : user.admin,
+            "blocked" : user.blocked
+        }
         access_token = login_manager.create_access_token(
             data={'sub': user.id}
         )
@@ -60,13 +70,11 @@ def logout_route():
 
 @router.get("/me")
 def current_user_route(request : Request):
-    user: UserSchema = Depends(login_manager.user_loader)
-    return templates.TemplateResponse("user.html", context={"request": request,"user": user})
+    return templates.TemplateResponse("user.html", context={"request": request,"bigUser": bigUser})
 
 
 def current_user_route(
     user: UserSchema = Depends(login_manager)) -> UserSchema:
-
     return user
 
 

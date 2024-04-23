@@ -14,9 +14,11 @@ from fastapi import Request
 from fastapi.templating import Jinja2Templates
 from typing import Optional
 from app.schemas.user import UserSchema
-from fastapi import Depends
+
 from app.login_manager import login_manager
 from app.routes.users import current_user_route
+from app.database import bigUser
+
 #from app.database import bookstore
 
 
@@ -39,14 +41,12 @@ def get_all_books(request: Request):
     #user: UserSchema = login_manager.user_loader()
     #thisUser = current_user_route(user)
     #user: UserSchema = Depends(login_manager.user_loader())
-    user = current_user_route()
-    print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-    print(user)
+    #user = services.get_user_by_id(bigUser["id"])
     booknumber = str(service.get_amount_books())
     books = service.get_all_books()
     return templates.TemplateResponse(
         "all_books.html",
-        context={'request': request, 'books': books, 'booknumber': booknumber, 'user': user}
+        context={'request': request, 'books': books, 'booknumber': booknumber, 'bigUser' : bigUser}
     )
 
 @router.get('/new')
