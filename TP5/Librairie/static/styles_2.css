@@ -123,6 +123,10 @@ h1 {
     padding-top: 50px;
 }
 
+.my_profile_container{
+    width: 50vw;
+    text-align: center !important;
+}
 
 table {
     width: 100%;
