@@ -20,7 +20,7 @@ def login_route( username: Annotated[str, Form()], password: Annotated[str,Form(
     
     user = service.get_user_by_username(username)
     if user is not None:
-        if user.blocked == True:
+        if user.blocked:
             return HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="User is blocked."
@@ -59,10 +59,16 @@ def logout_route():
 
 
 @router.get("/me")
+def current_user_route(request : Request):
+    user: UserSchema = Depends(login_manager.user_loader)
+    return templates.TemplateResponse("user.html", context={"request": request,"user": user})
+
+
 def current_user_route(
-    user: UserSchema = Depends(login_manager),
-):
+    user: UserSchema = Depends(login_manager)) -> UserSchema:
+
     return user
+
 
 @router.get("/register")
 def register_form(request: Request):
@@ -88,12 +94,9 @@ def block_form(request: Request, username : str):
 
 @router.post("/block/{username}")
 def block_user(username: str) :
-    for user in bookstore["users"] :
-        if user["username"] == username :
-            if not user["blocked"]:
-                user["blocked"] = True
-                return RedirectResponse(url="/books/all", status_code=302)
-    #else: raise ValueError("This user doesn't exist")
+    service.block_user(username)
+    response = RedirectResponse(url="/books/all", status_code=302)
+    return  response
 
 @router.get("/unblock/{username}")
 def unblock_form(request: Request, username : str):
@@ -103,8 +106,6 @@ def unblock_form(request: Request, username : str):
 
 @router.post("/unblock/{username}")
 def unblock_user(username: str) :
-    for user in bookstore["users"] :
-        if user["username"] == username :
-            if user["blocked"]:
-                user["blocked"] = False
-                return RedirectResponse(url="/books/all", status_code=302)
+    service.unblock_user(username)
+    response = RedirectResponse(url="/books/all", status_code=302)
+    return  response

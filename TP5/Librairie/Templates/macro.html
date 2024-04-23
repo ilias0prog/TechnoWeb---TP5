@@ -23,7 +23,7 @@
         <td>{{ price }} €</td>
     </tr>
 {% endmacro %}
-{% macro show_user(username,firstname, name, email, blocked) %}
+{% macro show_user(username,firstname, name, email,admin, blocked) %}
     <tbody>
     
         <td class="username">{{ username }}</td>
@@ -33,6 +33,8 @@
         <td>{{ name }}</td>
 
         <td>{{ email }}</td>
+        
+        <td>{{ admin }}</td>
 
         <td>{{ blocked }}</td>
         <td>

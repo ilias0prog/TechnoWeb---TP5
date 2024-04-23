@@ -8,14 +8,15 @@ from fastapi.responses import HTMLResponse
 from pydantic import ValidationError
 from app.schemas.books import BookSchema
 import app.services.books as service
+import app.services.users as services
 from Templates import *
 from fastapi import Request
 from fastapi.templating import Jinja2Templates
 from typing import Optional
-from app.models.users import User
 from app.schemas.user import UserSchema
 from fastapi import Depends
 from app.login_manager import login_manager
+from app.routes.users import current_user_route
 #from app.database import bookstore
 
 
@@ -35,15 +36,18 @@ def get_all_books(request: Request):
     Returns:
         JSONResponse: The response containing the list of all books.
     """
-    print("################################")
-    user: UserSchema = Depends(login_manager)
+    #user: UserSchema = login_manager.user_loader()
+    #thisUser = current_user_route(user)
+    #user: UserSchema = Depends(login_manager.user_loader())
+    user = current_user_route()
+    print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+    print(user)
     booknumber = str(service.get_amount_books())
     books = service.get_all_books()
     return templates.TemplateResponse(
         "all_books.html",
         context={'request': request, 'books': books, 'booknumber': booknumber, 'user': user}
     )
-
 
 @router.get('/new')
 def ask_to_create_new_book(request: Request):

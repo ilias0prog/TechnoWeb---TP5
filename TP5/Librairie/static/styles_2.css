@@ -43,8 +43,8 @@ h1 {
 }
 
 /*Home page*/
-.Homepage{
-}
+.Homepage {}
+
 /*
 .navbar{
     background-color:brown;
@@ -71,7 +71,7 @@ h1 {
     padding-top: 10px;
 }
 
-.navbar{
+.navbar {
     position: absolute;
     top: 10px;
     padding: 50px;
@@ -82,14 +82,14 @@ h1 {
     height: 120px;
     width: 100vw;
     box-sizing: border-box;
-    box-shadow: 0 1em 1.25em rgba(0,0,0,.03);
+    box-shadow: 0 1em 1.25em rgba(0, 0, 0, .03);
 }
 
 .navbar a {
     font-family: CabinetGrotesk-Extrabold;
 }
 
-.navbar .logo{
+.navbar .logo {
     font-size: 2em;
     font-family: CabinetGrotesk-Black;
 }
@@ -107,12 +107,16 @@ h1 {
     font-family: CabinetGrotesk-Black;
 }
 
+#user_profile_btn {
+    font-size: 2em;
+}
+
 .table_container {
     display: flex;
     justify-content: center;
     align-items: center;
     padding-top: 200px;
-    margin:0 10vw;
+    margin: 0 10vw;
 }
 
 #users.table_container {
@@ -127,7 +131,7 @@ table {
 
 table th {
     min-width: 120px;
-    box-shadow: 0 0 1em 0.5em rgba(0,0,0, .03);
+    box-shadow: 0 0 1em 0.5em rgba(0, 0, 0, .03);
     border: none;
     border-bottom: #19191c;
     padding: 15px;
@@ -135,11 +139,12 @@ table th {
     border: solid rgb(61, 61, 92, 0.05) 0.1px;
 }
 
-table td{
+table td {
     padding: 15px;
 }
 
-table th, td {
+table th,
+td {
     text-align: center;
     align-items: center;
     background-color: #e6e6e3;
@@ -200,10 +205,10 @@ form {
     height: 60px;
     width: 80px;
     border: none;
-    box-shadow: 0 0 10px rgba(0,0,0, .1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
 }
 
-.form_button{
+.form_button {
     font-family: CabinetGrotesk-ExtraBold;
     font-size: 1.5em;
     height: 36px;
@@ -217,10 +222,13 @@ form {
     width: 70px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    box-shadow: 0 0 1em rgba(0,0,0, .1);
+    box-shadow: 0 0 1em rgba(0, 0, 0, .1);
 }
 
-#confirm_edit_button, #confirm_delete_button, #confirm_register_button, #confirm_logout{
+#confirm_edit_button,
+#confirm_delete_button,
+#confirm_register_button,
+#confirm_logout {
     margin-top: 30px;
     height: 80px;
     width: 100px;
@@ -239,7 +247,7 @@ form {
 .form_button:hover {
     transform: scale(1.05);
     border-radius: 7px;
-    box-shadow: 0 0 1.1em rgba(0,0,0, .2);
+    box-shadow: 0 0 1.1em rgba(0, 0, 0, .2);
 }
 
 .back_button {
@@ -279,9 +287,7 @@ input {
 }
 
 
-.button_link {
-
-}
+.button_link {}
 
 #add_button {
     padding: 8px;
@@ -294,7 +300,10 @@ input {
     justify-content: center;
 }
 
-#edit_button, #delete_button, #block_button, #unblock_button {
+#edit_button,
+#delete_button,
+#block_button,
+#unblock_button {
     font-size: 1.5em;
 }
 
@@ -311,9 +320,8 @@ input {
     margin: 10px 20px 0;
 }
 
-.confirm_block, .confirm_unblock {
-
-}
+.confirm_block,
+.confirm_unblock {}
 
 
 .register_button {

@@ -14,13 +14,14 @@
                 <th>Firstname</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Is admin</th>
                 <th>Is blocked</th>
                 <th>Block</th>
                 <th>Unlblock</th>
             </thead>
 
             {% for user in users %}
-            {{ show_user( user.username, user.firstname, user.name, user.email, user.blocked) }}
+            {{ show_user( user.username, user.firstname, user.name, user.email,user.admin, user.blocked) }}
             
             {% endfor %}
             

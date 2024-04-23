@@ -17,8 +17,10 @@
                 {% if user.admin %}
                 <li> <a href="/users/admin">Admin</a></li>
                 <li> <a href="/users/logout">Logout</a></li>
+                <li> <a href="/users/logout"> <i class='bx bxs-user-circle'></i> </a></li>
                 {% else %}
                 <li> <a href="/users/logout">Logout</a></li>
+                <li> <a href="/users/me"> <i class='bx bxs-user-circle'></i> </a></li>
                 {% endif %}
             </ul>
         </div>
@@ -34,7 +36,7 @@
                 <th>    Author  </th>
                 <th>    Editor  </th>
                 <th>    Price   </th>
-                    {% else %}
+                {% else %}
                 <th>    Title   </th>
                 <th>    Author  </th>
                 <th>    Editor  </th>

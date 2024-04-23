@@ -25,7 +25,10 @@ def get_user_by_username(username: str):
 def get_user_by_id(id: str):
     with Session() as session:
         statement = select(User).filter_by(id=id)
-        user = session.execute_one(statement)
+        user = session.scalars(statement).one()
+        print("######################################################")
+        print(user)   
+        #user = session.query(User).filter_by(id=id).first()
         if user is not None:
             return UserSchema(
                 id=user.id,
