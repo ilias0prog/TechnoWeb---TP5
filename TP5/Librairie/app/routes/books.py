@@ -26,6 +26,7 @@ router = APIRouter(prefix="/books", tags=["Books"])
 
 
 # Define a GET route to retrieve all books
+
 @router.get('/all')
 def get_all_books(request: Request):
     """
@@ -34,6 +35,7 @@ def get_all_books(request: Request):
     Returns:
         JSONResponse: The response containing the list of all books.
     """
+    print("################################")
     user: UserSchema = Depends(login_manager)
     booknumber = str(service.get_amount_books())
     books = service.get_all_books()
@@ -41,6 +43,7 @@ def get_all_books(request: Request):
         "all_books.html",
         context={'request': request, 'books': books, 'booknumber': booknumber, 'user': user}
     )
+
 
 @router.get('/new')
 def ask_to_create_new_book(request: Request):

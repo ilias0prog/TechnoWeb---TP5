@@ -25,19 +25,20 @@ def get_user_by_username(username: str):
 def get_user_by_id(id: str):
     with Session() as session:
         statement = select(User).filter_by(id=id)
-        user = session.scalar(statement) 
+        user = session.execute_one(statement)
         if user is not None:
             return UserSchema(
-                id = user.id,
+                id=user.id,
                 username=user.username,
-                firstname = user.firstname,
-                name = user.name,
-                email = user.email,
-                password = user.password,
+                firstname=user.firstname,
+                name=user.name,
+                email=user.email,
+                password=user.password,
                 admin=user.admin,
                 blocked=user.blocked
             )
     return None
+
 
 def get_user_by_username(thisUsername :str):
     with Session() as session:
