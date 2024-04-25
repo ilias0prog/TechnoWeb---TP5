@@ -1,7 +1,7 @@
 # Import necessary modules and classes
 from typing import Annotated
 from fastapi.responses import RedirectResponse, JSONResponse
-from fastapi import APIRouter, HTTPException, status, Request, Form
+from fastapi import APIRouter, HTTPException, status, Request, Form, Depends
 from uuid import uuid4
 from fastapi import APIRouter, HTTPException, status
 from fastapi.responses import HTMLResponse
@@ -31,7 +31,7 @@ router = APIRouter(prefix="/books", tags=["Books"])
 # Define a GET route to retrieve all books
 
 @router.get('/all')
-def get_all_books(request: Request):
+def get_all_books(request: Request, user: UserSchema = Depends(login_manager)):
     """
     Retrieve all books.
 
@@ -46,7 +46,7 @@ def get_all_books(request: Request):
     books = service.get_all_books()
     return templates.TemplateResponse(
         "all_books.html",
-        context={'request': request, 'books': books, 'booknumber': booknumber, 'bigUser' : bigUser}
+        context={'request': request, 'books': books, 'booknumber': booknumber, 'user' : user}
     )
 
 @router.get('/new')

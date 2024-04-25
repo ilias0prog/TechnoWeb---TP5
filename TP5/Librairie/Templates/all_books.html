@@ -14,7 +14,7 @@
         <h1 class="hometitle">Our Bookstore</h1>
         <div class="home_links">
             <ul>
-                {% if bigUser.admin %}
+                {% if user.admin %}
                 <li> <a href="/users/admin">Admin</a></li>
                 <li> <a href="/users/logout">Logout</a></li>
                 <li> <a href="/users/logout"> <i class='bx bxs-user-circle'></i> </a></li>
@@ -29,7 +29,7 @@
     <div class="table_container">
         <table class="book_table">
             <thead>
-                {% if bigUser.admin %}
+                {% if user.admin %}
                 <th>    Modify  </th>
                 <th>    Delete  </th>
                 <th>    Title   </th>
@@ -44,7 +44,7 @@
             </thead>
             {% endif %} 
             {% for book in books %}
-            {% if bigUser.admin %}
+            {% if user.admin %}
             {{ show_book(book.id, book.name, book.author, book.editor, book.price)}}
             {% else %}
             <tbody>
@@ -59,7 +59,7 @@
         
     </div>
     
-    {% if bigUser.admin %}
+    {% if user.admin %}
     <div class="add_button_container">
         <a class="button_link" href="/books/new"><i class='bx bx-book-add' id="add_button"></i></box-icon></a>
     </div>

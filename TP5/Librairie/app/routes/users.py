@@ -69,13 +69,12 @@ def logout_route():
 
 
 @router.get("/me")
-def current_user_route(request : Request):
-    return templates.TemplateResponse("user.html", context={"request": request,"bigUser": bigUser})
+def current_user_route(request : Request, user: UserSchema = Depends(login_manager)):
+    
+    return templates.TemplateResponse("user.html", context={"request": request,"bigUser": user})
 
 
-def current_user_route(
-    user: UserSchema = Depends(login_manager)) -> UserSchema:
-    return user
+
 
 
 @router.get("/register")
