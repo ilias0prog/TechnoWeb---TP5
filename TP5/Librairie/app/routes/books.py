@@ -17,7 +17,6 @@ from app.schemas.user import UserSchema
 
 from app.login_manager import login_manager
 from app.routes.users import current_user_route
-from app.database import bigUser
 
 #from app.database import bookstore
 

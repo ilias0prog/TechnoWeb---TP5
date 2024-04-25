@@ -8,7 +8,7 @@ import app.services.users as service
 from app.schemas.user import UserSchema
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
-from app.database import bigUser
+
 
 
 templates = Jinja2Templates(directory="TP5\Librairie\Templates")
@@ -30,16 +30,7 @@ def login_route( username: Annotated[str, Form()], password: Annotated[str,Form(
             return HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="incorrect password.")
-        bigUser = {
-            "id" : user.id,
-            "username" : user.username,
-            "firstname" : user.firstname,
-            "name" : user.name,
-            "email" : user.email,
-            "password" : user.password,
-            "admin" : user.admin,
-            "blocked" : user.blocked
-        }
+        
         access_token = login_manager.create_access_token(
             data={'sub': user.id}
         )
@@ -71,7 +62,7 @@ def logout_route():
 @router.get("/me")
 def current_user_route(request : Request, user: UserSchema = Depends(login_manager)):
     
-    return templates.TemplateResponse("user.html", context={"request": request,"bigUser": user})
+    return templates.TemplateResponse("user.html", context={"request": request,"user": user})
 
 
 

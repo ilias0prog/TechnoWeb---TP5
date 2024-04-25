@@ -284,4 +284,3 @@ def fill_books_db():
 
 
 
-bigUser = {}
