@@ -81,7 +81,6 @@ def  register_action( username:Annotated[str, Form()], firstname: Annotated[str,
 
 @router.get("/admin")
 def admin_form(request: Request):
-    service.get_all_users()
     return templates.TemplateResponse("/admin.html", context={"request": request, "users": service.get_all_users()})
 
 @router.get("/block/{username}")

@@ -92,10 +92,10 @@ def get_all_users():
     # Returns all the users as a list
     with Session() as session:
         statement = select(User)
-        users = session.execute(statement).all()
-        
+        users_data = session.execute(statement).all()
         users_list = []
-        for user in users:
+        for (user,) in users_data:
+            
             user_schema = User(
                 id=user.id,
                 username=user.username,
