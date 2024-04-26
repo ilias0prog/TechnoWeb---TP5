@@ -56,7 +56,7 @@ def ask_to_create_new_book(request: Request):
     )
 
 @router.post('/new')
-def add_book(name: Annotated[str, Form()], author: Annotated[str, Form()], editor: Annotated[str, Form()]) :
+def add_book(name: Annotated[str, Form()], author: Annotated[str, Form()], editor: Annotated[str, Form()]  ,user: UserSchema = Depends(login_manager)) :
     """
     Adds a new book to the library.
 
@@ -74,21 +74,23 @@ def add_book(name: Annotated[str, Form()], author: Annotated[str, Form()], edito
     """
     if (name is None or author is None or editor is None):
         raise ValueError("All fields must be filled in order to add a new book")
-    new_book_data = {
-        "id": str(uuid4()),
-        "name": name,
-        "author": author,
-        "editor": editor,
-    }     
+    new_book_data = BookSchema(
+        id=str(uuid4()),
+        name=name,
+        author=author,
+        editor=editor,
+        price = 0,
+        owner_id = user.id
+    )
     try:
-        new_book = BookSchema.model_validate(new_book_data)
+        service.save_book(new_book_data)
           
     except ValidationError as e:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             detail=e.errors(),
         )
-    service.save_book(new_book)  # Save the validated book
+     # Save the validated book
     return RedirectResponse(url="/books/all", status_code=302)
 
 @router.get('/update/{id}', response_class=HTMLResponse)
